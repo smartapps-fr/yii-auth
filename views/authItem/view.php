@@ -16,8 +16,9 @@ $this->breadcrumbs = array(
 <div class="title-row clearfix">
 
     <h1 class="pull-left">
-        <?php echo CHtml::encode($item->description); ?>
-        <small><?php echo $this->getTypeText(); ?></small>
+        <?php echo CHtml::encode($item->name); ?>
+        <small><?php echo CHtml::encode($item->description); ?></small>
+        <em><small><?php echo $this->getTypeText(); ?></small></em>
     </h1>
 
     <?php echo TbHtml::buttonGroup(
@@ -65,6 +66,35 @@ $this->breadcrumbs = array(
         ),
     )
 ); ?>
+
+<?php if (!empty($childOptions)): ?>
+<div style="margin: 10px;">
+    <?php $form = $this->beginWidget(
+        'bootstrap.widgets.TbActiveForm',
+        array(
+            'layout' => TbHtml::FORM_LAYOUT_INLINE,
+        )
+    ); ?>
+
+    <?php
+        $this->widget('MultiSelect', array(
+                'propertyName' => 'items',
+                'modelName' => 'AddAuthItemForm',
+                'label' => Yii::t('AuthModule.main', 'Add child'),
+                'elements' => $childOptions
+        ));
+    ?>
+
+    <?php echo TbHtml::submitButton(
+        Yii::t('AuthModule.main', 'Add'),
+        array(
+            'color' => TbHtml::BUTTON_COLOR_PRIMARY,
+        )
+    ); ?>
+
+    <?php $this->endWidget(); ?>
+</div>
+<?php endif; ?>
 
 <hr/>
 
@@ -117,9 +147,13 @@ $this->breadcrumbs = array(
                 'type' => 'striped condensed hover',
                 'dataProvider' => $descendantDp,
                 'emptyText' => Yii::t('AuthModule.main', 'This item does not have any descendants.'),
-                'hideHeader' => true,
                 'template' => "{items}",
+                'hideHeader' => true,
                 'columns' => array(
+                    array(
+                        'name' => 'name',
+                        'header' => Yii::t('AuthModule.main', 'System name'),
+                    ),
                     array(
                         'class' => 'AuthItemDescriptionColumn',
                         'itemName' => $item->name,
@@ -135,38 +169,6 @@ $this->breadcrumbs = array(
                 ),
             )
         ); ?>
-
-    </div>
-
-</div>
-
-<div class="row">
-
-    <div class="span6 offset6">
-
-        <?php if (!empty($childOptions)): ?>
-
-            <h4><?php echo Yii::t('AuthModule.main', 'Add child'); ?></h4>
-
-            <?php $form = $this->beginWidget(
-                'bootstrap.widgets.TbActiveForm',
-                array(
-                    'layout' => TbHtml::FORM_LAYOUT_INLINE,
-                )
-            ); ?>
-
-            <?php echo $form->dropDownListControlGroup($formModel, 'items', $childOptions, array('label' => false)); ?>
-
-            <?php echo TbHtml::submitButton(
-                Yii::t('AuthModule.main', 'Add'),
-                array(
-                    'color' => TbHtml::BUTTON_COLOR_PRIMARY,
-                )
-            ); ?>
-
-            <?php $this->endWidget(); ?>
-
-        <?php endif; ?>
 
     </div>
 
