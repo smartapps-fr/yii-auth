@@ -67,35 +67,6 @@ $this->breadcrumbs = array(
     )
 ); ?>
 
-<?php if (!empty($childOptions)): ?>
-<div style="margin: 10px;">
-    <?php $form = $this->beginWidget(
-        'bootstrap.widgets.TbActiveForm',
-        array(
-            'layout' => TbHtml::FORM_LAYOUT_INLINE,
-        )
-    ); ?>
-
-    <?php
-        $this->widget('MultiSelect', array(
-                'propertyName' => 'items',
-                'modelName' => 'AddAuthItemForm',
-                'label' => Yii::t('AuthModule.main', 'Add child'),
-                'elements' => $childOptions
-        ));
-    ?>
-
-    <?php echo TbHtml::submitButton(
-        Yii::t('AuthModule.main', 'Add'),
-        array(
-            'color' => TbHtml::BUTTON_COLOR_PRIMARY,
-        )
-    ); ?>
-
-    <?php $this->endWidget(); ?>
-</div>
-<?php endif; ?>
-
 <hr/>
 
 <div class="row">
@@ -116,6 +87,10 @@ $this->breadcrumbs = array(
                 'template' => "{items}",
                 'hideHeader' => true,
                 'columns' => array(
+                     array(
+                        'name' => 'name',
+                        'header' => Yii::t('AuthModule.main', 'System name'),
+                    ),
                     array(
                         'class' => 'AuthItemDescriptionColumn',
                         'itemName' => $item->name,
@@ -169,6 +144,39 @@ $this->breadcrumbs = array(
                 ),
             )
         ); ?>
+
+    </div>
+
+</div>
+
+<div class="row">
+    <div class="span6 offset6">
+         <?php if (!empty($childOptions)): ?>
+            <?php $form = $this->beginWidget(
+                'bootstrap.widgets.TbActiveForm',
+                array(
+                    'layout' => TbHtml::FORM_LAYOUT_INLINE,
+                )
+            ); ?>
+
+            <?php
+                $this->widget('MultiSelect', array(
+                        'propertyName' => 'items',
+                        'modelName' => 'AddAuthItemForm',
+                        'label' => '<h4>' . Yii::t('AuthModule.main', 'Add child') . '</h4>',
+                        'elements' => $childOptions
+                ));
+            ?>
+
+            <?php echo TbHtml::submitButton(
+                Yii::t('AuthModule.main', 'Add'),
+                array(
+                    'color' => TbHtml::BUTTON_COLOR_PRIMARY,
+                )
+            ); ?>
+
+            <?php $this->endWidget(); ?>
+        <?php endif; ?>
 
     </div>
 

@@ -33,7 +33,7 @@ class MultiSelect extends CWidget
     public function run()
     {
         echo '
-        <label for="multiSelect' . $this->propertyName .'">' . $this->label . '</label>
+        <label for="multiSelect' . $this->propertyName .'">' . $this->label . '</label><br />
             <select
             name="' . $this->modelName . '[' . $this->propertyName . '][]"
             class="selectpicker"
