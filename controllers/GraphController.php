@@ -8,21 +8,19 @@
  */
 class GraphController extends AuthController
 {
-    /**
-     * Graph root node
-     * @var string
-     */
-
-    public $root = 'Admin';
 
     public function actionIndex()
     {
         $this->render('rbac');
     }
 
-    public function actionRBACJson()
+    public function actionRBACJson($root = 'Admin')
     {
-        $this->renderJSON($this->buildTree($this->root));
+		$am = Yii::app()->getAuthManager();
+        $this->renderJSON(array(
+        	'nbelements' => count($am->getDescendants($root)),
+        	'elements' => $this->buildTree($root),
+        ));
     }
 
     private function renderJSON($data)

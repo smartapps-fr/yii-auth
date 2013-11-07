@@ -7,6 +7,10 @@
 </div>
 <div class="main"><!-- --></div>
 <style>
+svg {
+	padding: 50px;
+}
+
 .node circle {
   fill: #fff;
   stroke: steelblue;
@@ -26,24 +30,25 @@
 </style>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script>
+var height;
 
-var width = 1000,
-    height = 2200;
+d3.json("/auth/graph/RBACJson/root/SiteManager", function(error, root) {
+	var width = 1000;
+    height = 13 * root.nbelements;
 
-var cluster = d3.layout.cluster()
-    .size([height, width - 160]);
+	var cluster = d3.layout.cluster()
+	    .size([height, width - 160]);
 
-var diagonal = d3.svg.diagonal()
-    .projection(function(d) { return [d.y, d.x]; });
+	var diagonal = d3.svg.diagonal()
+	    .projection(function(d) { return [d.y, d.x]; });
 
-var svg = d3.select(".main").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(40,0)");
+	var svg = d3.select(".main").append("svg")
+	    .attr("width", width)
+	    .attr("height", height)
+	  	.append("g")
+	    .attr("transform", "translate(40,0)");
 
-d3.json("/auth/graph/RBACJson", function(error, root) {
-  var nodes = cluster.nodes(root),
+  var nodes = cluster.nodes(root.elements),
       links = cluster.links(nodes);
 
   var link = svg.selectAll(".link")
