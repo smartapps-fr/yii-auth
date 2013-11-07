@@ -1,14 +1,12 @@
 <div class="title-row clearfix">
-
-    <h1 class="pull-left">
+    <h2 class="pull-left">
         Graph
-        <small>With <em>d3js.org</em></small>
-    </h1>
+    </h2>
 </div>
 <div class="main"><!-- --></div>
 <style>
 svg {
-	padding: 50px;
+	padding: 150px;
 }
 
 .node circle {
@@ -32,9 +30,9 @@ svg {
 <script>
 var height;
 
-d3.json("/auth/graph/RBACJson/root/SiteManager", function(error, root) {
-	var width = 1000;
-    height = 13 * root.nbelements;
+d3.json("/auth/graph/RBACJson/root/<?= $root ?>", function(error, root) {
+	var width = 960;
+    height = 20 * root.nbelements;
 
 	var cluster = d3.layout.cluster()
 	    .size([height, width - 160]);

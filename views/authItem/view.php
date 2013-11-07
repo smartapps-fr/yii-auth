@@ -179,5 +179,7 @@ $this->breadcrumbs = array(
         <?php endif; ?>
 
     </div>
-
 </div>
+<?php
+	$this->renderPartial('/graph/rbac', array('root' => $item->name));
+?>

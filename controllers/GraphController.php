@@ -11,7 +11,9 @@ class GraphController extends AuthController
 
     public function actionIndex()
     {
-        $this->render('rbac');
+        $this->render('rbac', array(
+        	'root' => 'Admin',
+        ));
     }
 
     public function actionRBACJson($root = 'Admin')
