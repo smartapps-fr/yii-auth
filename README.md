@@ -1,3 +1,11 @@
+Fork de yii-auth de github.com/Crisu83/yii-auth
+- Amélioration de l'interface
+- Distinctions nom / description sur les view
+- Utilisation de select multiple pour les assignation
+- Description dans les inputs select
+- Affichage du nom dans les listes
+- Onglet graph
+
 yii-auth
 ========
 
