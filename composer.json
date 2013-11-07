@@ -1,5 +1,5 @@
 {
-    "name": "arnaud-f/yii-auth",
+    "name": "smartapps/yii-auth",
     "description": "Improvement of the yii-auth Web UI for the authorization manager of Yii PHP framework.",
     "keywords": ["yii", "authentication", "rbac"],
     "type": "library",
