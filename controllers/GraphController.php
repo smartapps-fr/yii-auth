@@ -9,19 +9,21 @@
 class GraphController extends AuthController
 {
 
-    public function actionIndex()
+    public function actionIndex($root = 'Admin', $direction = 'desc')
     {
         $this->render('rbac', array(
-        	'root' => 'Admin',
+        	'root' => $root,
+        	'direction' => $direction,
         ));
     }
 
-    public function actionRBACJson($root = 'Admin')
+    public function actionRBACJson($root = 'Admin', $direction = 'desc')
     {
 		$am = Yii::app()->getAuthManager();
+		$nbelements = ($direction == 'desc') ? count($am->getDescendants($root)) : count($am->getAncestors($root));
         $this->renderJSON(array(
-        	'nbelements' => count($am->getDescendants($root)),
-        	'elements' => $this->buildTree($root),
+        	'nbelements' => $nbelements,
+        	'elements' => $this->buildTree($root, $direction),
         ));
     }
 
@@ -39,13 +41,16 @@ class GraphController extends AuthController
         Yii::app()->end();
     }
 
-    private function buildTree($name)
+    private function buildTree($name, $direction = 'desc')
     {
-        $childrenQuery = Yii::app()->db->createCommand()
-        ->select('child')
-        ->from('AuthItemChild')
-        ->where('parent=:parent', array(':parent' => $name))
-        ->queryColumn();
+        $childrenQuery = Yii::app()->db->createCommand();
+        $childrenQuery = ($direction == 'desc') ? $childrenQuery->select('child') : $childrenQuery->select('parent');
+        $childrenQuery = $childrenQuery->from('AuthItemChild');
+        $childrenQuery = ($direction == 'desc') ?
+        	$childrenQuery->where('parent=:parent', array(':parent' => $name)) :
+        	$childrenQuery->where('child=:child', array(':child' => $name));
+
+        $childrenQuery = $childrenQuery->queryColumn();
 
         if (empty($childrenQuery)) {
             return array(
@@ -56,7 +61,7 @@ class GraphController extends AuthController
         $children = array();
 
         foreach ($childrenQuery as $childName) {
-            $children[] = $this->buildTree($childName);
+            $children[] = $this->buildTree($childName, $direction);
         }
 
         return array(

@@ -180,6 +180,7 @@ $this->breadcrumbs = array(
 
     </div>
 </div>
+<h1>Graph</h1>
 <?php
-	$this->renderPartial('/graph/rbac', array('root' => $item->name));
+	$this->renderPartial('/graph/rbac', array('root' => $item->name, 'direction' => 'desc'));
 ?>

@@ -30,7 +30,7 @@ svg {
 <script>
 var height;
 
-d3.json("/auth/graph/RBACJson/root/<?= $root ?>", function(error, root) {
+d3.json("/auth/graph/RBACJson/root/<?= $root ?>/direction/<?= $direction ?>", function(error, root) {
 	var width = 960;
     height = 20 * root.nbelements;
 
