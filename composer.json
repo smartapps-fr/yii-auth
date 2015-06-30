@@ -12,9 +12,9 @@
 		"homepage": "http://www.cniska.net/"
 	}],
 	"require": {
-		"crisu83/yiistrap": ">=1.0.0"
 	},
 	"require-dev": {
-		"yiisoft/yii": ">=1.1.0"
+		"yiisoft/yii": ">=1.1.0",
+		"crisu83/yiistrap": ">=1.0.0"
 	}
 }
