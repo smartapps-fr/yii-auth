@@ -1,11 +1,15 @@
 {
-	"name": "smartapps/yii-auth",
+	"name": "smartapps-fr/yii-auth",
 	"description": "Improvement of the yii-auth Web UI for the authorization manager of Yii PHP framework.",
 	"keywords": ["yii", "authentication", "rbac"],
 	"type": "library",
 	"license": "BSD-3-Clause",
 	"authors": [{
-		"name": "Arnaud Fabre"
+		"name": "Damien Debin",
+		"email": "dd@smartapps.fr"
+	}, {
+		"name": "Arnaud Fabre",
+		"email": "af@smartapps.fr"
 	}, {
 		"name": "Christoffer Niska",
 		"email": "christoffer.niska@gmail.com",
